@@ -1,0 +1,5 @@
+{
+  :foo  "bar"
+  :keys {:main {{:char "enter" :modifier #{}} enter}}
+  :format {:last-modified "$(date-format date \"yyyy/MM/dd HH:mm\")"}
+}

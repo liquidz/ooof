@@ -1,0 +1,77 @@
+{
+    :execute "open $(path)"
+    :font {
+        :name "07YasashisaGothic"
+        :size 12
+    }
+
+    :color {
+        :background {
+            :even         "#1d1f21"
+            :odd          "#1d1f21"
+            :cursor       "#373b41"
+            :focus        "#b294bb"
+            }
+        :foreground {
+            :file         "#c5c8c6"
+            :directory    "#81a2be"
+            :selected     "#de935f"
+            :focus        "#1d1f21"
+        }
+    }
+    :key-timer {:initial-delay 500 :delay 50}
+    :keys {
+        :main {
+            {:char "enter" :modifier #{}} enter
+            {:char "m"     :modifier #{:ctrl}} enter
+            {:char "tab"   :modifier #{}} toggle-pane
+            {:char ">"     :modifier #{:shift}} toggle-pane
+            {:char "<"     :modifier #{:shift}} toggle-pane
+            {:char "j"     :modifier #{}} cursor-down
+            {:char "k"     :modifier #{}} cursor-up
+            {:char "space" :modifier #{}} toggle-selection
+            {:char "/"     :modifier #{}} show-search-dialog
+            {:char "n"     :modifier #{}} search-next
+            {:char "n"     :modifier #{:shift}} search-prev
+            {:char "r"     :modifier #{}} refresh
+            {:char "l"     :modifier #{}} go-down
+            {:char "h"     :modifier #{}} back-to-parent
+            {:char "r"     :modifier #{:ctrl}} show-rename-dialog
+            {:char "g"     :modifier #{}} select-first
+            {:char "g"     :modifier #{:shift}} select-last
+            {:char "~"     :modifier #{:shift}} go-home
+            {:char "b"     :modifier #{:ctrl}} [cursor-up 20]
+            {:char "d"     :modifier #{:ctrl}} [cursor-down 20]
+            {:char "\\"    :modifier #{}} [cd "/"]
+            {:char "a"     :modifier #{}} select-all
+            {:char "esc"   :modifier #{}} deselect-all
+            {:char "d"     :modifier #{}} delete-selected-files
+            {:char "c"     :modifier #{}} copy-selected-files
+            {:char "m"     :modifier #{}} move-selected-files
+            {:char "v"     :modifier #{}} [sendto "text"]
+            {:char "s"     :modifier #{}} show-sendto-dialog
+        }
+        :search {
+            {:char "enter" :modifier #{}} search-next
+            {:char "esc"   :modifier #{}} hide-search-dialog
+        }
+        :rename {
+            {:char "enter" :modifier #{}} rename-file
+            {:char "esc"   :modifier #{}} hide-rename-dialog
+        }
+        :sendto {
+            {:char "enter" :modifier #{}} sendto-by-selected
+            {:char "m"     :modifier #{:ctrl}} sendto-by-selected
+            {:char "esc"   :modifier #{}} hide-sendto-dialog
+            {:char "j"     :modifier #{}} cursor-down
+            {:char "k"     :modifier #{}} cursor-up
+        }
+    }
+
+    :sendto {
+        "text" "open -a TextEdit $(path)"
+        "gimp" "open -a Gimp $(path)"
+    }
+
+    :bookmarks #ooof.config/include "bookmark.edn"
+}
