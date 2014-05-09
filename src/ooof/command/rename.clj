@@ -13,9 +13,15 @@
 (defn show-rename-dialog
   [src]
   (reset! target-table src)
-  (let [current-name (:name (table/value-at src (selection src)))]
+  (let [current-name (:name (table/value-at src (selection src)))
+        dot-pos      (.indexOf current-name ".")]
     (text! rui/before-name current-name)
-    (text! rui/new-name-text current-name))
+    (text! rui/new-name-text current-name)
+
+    ; select only filename
+    (selection! rui/new-name-text
+                [0 (if (<= dot-pos 0) (count current-name) dot-pos)]))
+
   (show! rui/rename-dialog))
 
 (defn hide-rename-dialog

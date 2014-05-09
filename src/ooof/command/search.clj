@@ -10,6 +10,7 @@
 (defn show-search-dialog
   [src]
   (reset! target-table src)
+  (selection! sui/search-text [0 (count (value sui/search-text))])
   (show! sui/search-dialog))
 
 (defn hide-search-dialog
