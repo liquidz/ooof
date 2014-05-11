@@ -3,14 +3,14 @@
     [ooof.ui.main :as mui]
     [ooof.config :as config]
     [ooof.util.file :as file]
+    [ooof.util.string :as string]
     [ooof.util.path :as path]
     [seesaw.core :refer :all]
     [seesaw.table :as table]
     [cuma.core  :refer [render]]
     [me.raynes.fs :as fs]
     [clojure.string :as str]
-    [clojure.java.io :as io]
-    [clojure.java.shell :as shell]))
+    [clojure.java.io :as io]))
 
 (defn- file-list [dir]
   (seq (.listFiles (io/file dir))))
@@ -89,7 +89,7 @@
 
 (defn- execute
   [cmd]
-  (apply shell/sh (str/split cmd #" +")))
+  (.start (ProcessBuilder. (into-array (string/parse-execute-arg cmd)))))
 
 (defn enter
   [src & args]
@@ -110,10 +110,7 @@
                     (range 0 (table/row-count src)))]
             (when i (select-at! src i)))))
       (let [s (render (:execute (config/get-config)) {:path (.getAbsolutePath file)})]
-        (execute s)
-        ;(apply shell/sh (str/split s #" +"))
-        ;(shutdown-agents)
-        ))))
+        (execute s)))))
 
 (defn go-down
   "カーソル下のディレクトリへ移動する"

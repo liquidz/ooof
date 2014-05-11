@@ -51,7 +51,7 @@
              (filter #(not (:dir? (table/value-at t %))))
              first
              (seesaw/selection! t))
-        (stubbing [shell/sh "execute"]
+        (stubbing [enter "execute"]
           (enter t) => "execute"))))
 
   (fact "cursor-up should work fine."
