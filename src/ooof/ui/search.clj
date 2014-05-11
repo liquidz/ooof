@@ -1,15 +1,11 @@
 (ns ooof.ui.search
   (:require
+    [ooof.ui :as ui]
     [ooof.ui.main :as mui]
     [ooof.config  :as config]
     [seesaw.core  :refer :all]))
 
-(def search-text
-  (doto (text)
-    (mui/set-font!)
-    (.setBackground (config/get-background :even))
-    (.setForeground (config/get-foreground :file))
-    (.setCaretColor (config/get-foreground :file))))
+(def search-text (ui/text))
 
 (def search-dialog
   (custom-dialog

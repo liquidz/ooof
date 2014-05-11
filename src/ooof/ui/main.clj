@@ -1,26 +1,15 @@
 (ns ooof.ui.main
   (:require
+    [ooof.ui :as ui]
     [ooof.config     :as config]
     [seesaw.core     :refer :all]
     [seesaw.table    :refer [table-model value-at]]
     [seesaw.font     :refer [font]]
     [clojure.java.io :as io])
   (:import
-    [javax.swing JTable]
-    [java.awt Dimension]))
+    [javax.swing JTable]))
 
 (def TITLE "ooof")
-
-(defn set-font!
-  [elem]
-  (.setFont elem (font :name (-> (config/get-config) :font :name)
-                       :size (-> (config/get-config) :font :size))))
-
-(defn set-no-grid!
-  [table]
-  (doto table
-    (.setShowGrid false)
-    (.setIntercellSpacing (Dimension. 0 0))))
 
 (defn file-table
   [& {:keys [id] :or {id (gensym)}}]
@@ -38,8 +27,8 @@
                     (config/get-background (cond (= row cursor-row)    :cursor
                                                  (= 0 (mod row 2))     :even
                                                  :else                 :odd)))))))
-      (set-font!)
-      (set-no-grid!)
+      (ui/set-font!)
+      (ui/set-no-grid!)
       (.setBackground (config/get-background :even)))))
 
 (defn current-dir-label
@@ -49,7 +38,7 @@
     (doto (label :text ""
                  :size [10000 :by (+ font-size margin)]
                  :h-text-position :left)
-      (set-font!)
+      (ui/set-font!)
       (.setBackground (config/get-background :even))
       (.setForeground (config/get-foreground :file)))))
 

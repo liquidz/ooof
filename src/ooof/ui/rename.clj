@@ -1,5 +1,6 @@
 (ns ooof.ui.rename
   (:require
+    [ooof.ui :as ui]
     [ooof.ui.main :as mui]
     [ooof.config  :as config]
     [seesaw.core :refer :all]))
@@ -8,14 +9,9 @@
 
 (def before-name
   (doto (label :size [WIDTH :by 15])
-    (mui/set-font!)))
+    (ui/set-font!)))
 
-(def new-name-text
-  (doto (text)
-    (mui/set-font!)
-    (.setBackground (config/get-background :even))
-    (.setForeground (config/get-foreground :file))
-    (.setCaretColor (config/get-foreground :file))))
+(def new-name-text (ui/text))
 
 (def rename-dialog
   (custom-dialog

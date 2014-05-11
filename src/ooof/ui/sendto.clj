@@ -1,5 +1,6 @@
 (ns ooof.ui.sendto
   (:require
+    [ooof.ui :as ui]
     [ooof.ui.main :as mui]
     [ooof.config  :as config]
     [seesaw.core  :refer :all]
@@ -9,8 +10,8 @@
 
 (def sendto-table
   (doto (table :model [:columns [:name]])
-    (mui/set-font!)
-    (mui/set-no-grid!)
+    (ui/set-font!)
+    (ui/set-no-grid!)
     (.setBackground (config/get-background :even))
     (.setForeground (config/get-foreground :file))
     (.setSelectionBackground (config/get-background :cursor))))

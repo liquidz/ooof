@@ -1,12 +1,13 @@
 (ns ooof.ui.goto
   (:require
+    [ooof.ui :as ui]
     [ooof.ui.main :as mui]
     [ooof.config  :as config]
     [seesaw.core  :refer :all]))
 
 (def goto-text
   (doto (text)
-    (mui/set-font!)
+    (ui/set-font!)
     (.setBackground (config/get-background :even))
     (.setForeground (config/get-foreground :file))
     (.setCaretColor (config/get-foreground :file))))
