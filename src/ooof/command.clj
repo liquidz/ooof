@@ -4,6 +4,7 @@
     ooof.command.search
     ooof.command.rename
     ooof.command.sendto
+    ooof.command.goto
     ))
 
 (defn get-command-fns*

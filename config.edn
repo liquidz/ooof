@@ -1,5 +1,10 @@
 {
     :execute "open $(path)"
+
+    :current-dir-label {
+        :margin 4
+    }
+
     :font {
         :name "07YasashisaGothic"
         :size 12
@@ -50,6 +55,7 @@
             {:char "m"     :modifier #{}} move-selected-files
             {:char "v"     :modifier #{}} [sendto "text"]
             {:char "s"     :modifier #{}} show-sendto-dialog
+            {:char "u"     :modifier #{:shift}} show-goto-dialog
         }
         :search {
             {:char "enter" :modifier #{}} search-next
@@ -65,6 +71,11 @@
             {:char "esc"   :modifier #{}} hide-sendto-dialog
             {:char "j"     :modifier #{}} cursor-down
             {:char "k"     :modifier #{}} cursor-up
+        }
+        :goto {
+            {:char "enter" :modifier #{}} goto-inserted-directory
+            {:char "m"     :modifier #{:ctrl}} goto-inserted-directory
+            {:char "esc"   :modifier #{}} hide-goto-dialog
         }
     }
 
