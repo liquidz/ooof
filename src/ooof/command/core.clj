@@ -87,8 +87,18 @@
   (refresh src)
   (select-at! src 0))
 
+(defn- get-execute-render-data
+  [src file]
+  {:path (.getAbsolutePath file)
+   :cwd  (mui/cwd src)
+   :name (.getName file)})
+
 (defn- execute
   [cmd]
+  ;(let [data {:path (.getAbsolutePath file)
+  ;            :cwd  (if src (mui/cwd src))
+  ;            :name (.getName file)}
+  ;      cmd (render (:execute (config/get-config)) data)]
   (.start (ProcessBuilder. (into-array (string/parse-execute-arg cmd)))))
 
 (defn enter
@@ -109,8 +119,9 @@
                     nil
                     (range 0 (table/row-count src)))]
             (when i (select-at! src i)))))
-      (let [s (render (:execute (config/get-config)) {:path (.getAbsolutePath file)})]
-        (execute s)))))
+      (let [data (get-execute-render-data src file)
+            cmd (render (:execute (config/get-config)) data)]
+        (execute cmd)))))
 
 (defn go-down
   "カーソル下のディレクトリへ移動する"
@@ -235,9 +246,10 @@
 
 (defn sendto
   [src target]
-  (let [file (:file (table/value-at src (selection src)))]
+  (let [file (:file (table/value-at src (selection src)))
+        data (get-execute-render-data src file)]
     (-> (config/get-config)
         :sendto
         (get target)
-        (render {:path (.getAbsolutePath file)})
+        (render data)
         execute)))
